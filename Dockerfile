@@ -24,8 +24,8 @@ RUN mkdir /var/madsonic
 RUN mkdir /var/madsonic/transcode
 RUN cd /tmp/madsonic && wget http://madsonic.org/download/5.1/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz
 RUN cd /tmp/madsonic && wget http://madsonic.org/download/transcode/20140411_madsonic-transcode_latest_x64.zip
-RUN tar xvfz /tmp/madsonic/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz /var/madsonic 
-RUN unzip /tmp/madsonic/20140411_madsonic-transcode_latest_x64.zip /tmp/madsonic
+RUN tar -xf /tmp/madsonic/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz -C /var/madsonic
+RUN unzip /tmp/madsonic/20140411_madsonic-transcode_latest_x64.zip -d /tmp/madsonic
 RUN mv /tmp/madsonic/linux/* /var/madsonic/transcode
 RUN rm -rf /tmp/madsonic
 
@@ -35,8 +35,8 @@ RUN rm -rf /tmp/madsonic
 # If you mount a volume over /var/subsonic, create symlinks
 # <host-dir>/var/subsonic/transcode/ffmpeg -> /usr/local/bin/ffmpeg
 # <host-dir>/var/subsonic/transcode/lame -> /usr/local/bin/lame
-RUN ln /var/subsonic/transcode/ffmpeg /var/subsonic/transcode/lame /usr/local/bin
-RUN chown -R nobody:users /var/subsonic
+RUN ln /var/madsonic/transcode/ffmpeg /var/madsonic/transcode/lame /usr/local/bin
+RUN chown -R nobody:users /var/madsonic
 
 EXPOSE 4040
 EXPOSE 4050
