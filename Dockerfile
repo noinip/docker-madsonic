@@ -1,32 +1,30 @@
-# Builds docker image for subsonic
-FROM ubuntu:trusty
-MAINTAINER Carlos Hernandez <carlos@techbyte.ca>
-
-# Let the container know that there is no tty
+FROM phusion/baseimage:0.9.11
+MAINTAINER botez <troyolson1@gmail.com>
 ENV DEBIAN_FRONTEND noninteractive
 
-# Set locale to UTF-8
-ENV LANGUAGE en_US.UTF-8
-ENV LANG en_US.UTF-8
-RUN locale-gen en_US en_US.UTF-8
-RUN update-locale LANG=en_US.UTF-8
-RUN dpkg-reconfigure locales
+# Set correct environment variables
+ENV HOME /root
 
-# Update Ubuntu
-RUN apt-mark hold initscripts udev plymouth mountall
-RUN apt-get update && apt-get -qy dist-upgrade && apt-get -q update
+# Use baseimage-docker's init system
+CMD ["/sbin/my_init"]
 
-# Set user nobody to uid and gid of unRAID
+# Fix a Debianism of the nobody's uid being 65534
 RUN usermod -u 99 nobody
 RUN usermod -g 100 nobody
 
-# install dependencies for subsonic
-RUN apt-get install -qy openjdk-6-jre
+RUN apt-get update -q
+
+# install dependencies for madsonic
+RUN apt-get install -qy openjdk-6-jre zip unzip
 RUN apt-get clean
 
-# install subsonic
-ADD http://downloads.sourceforge.net/project/subsonic/subsonic/4.9/subsonic-4.9.deb /tmp/subsonic.deb
-RUN dpkg -i /tmp/subsonic.deb && rm /tmp/subsonic.deb
+# install madsonic
+ADD http://madsonic.org/download/5.1/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz /tmp/madsonic
+ADD http://madsonic.org/download/transcode/20140411_madsonic-transcode_latest_x64.zip /tmp/madsonic
+RUN tar xvfz 20140415_madsonic-5.1.4100.beta1-standalone.tar.gz /var/madsonic 
+RUN unzip /tmp/madsonic/20140411_madsonic-transcode_latest_x64.zip /tmp/madsonic
+RUN mv /tmp/madsonic/linux/* /var/madsonic/transcode
+RUN rm -rf /tmp/madsonic
 
 # Create hardlinks to the transcoding binaries.
 # This way we can mount a volume over /var/subsonic.
@@ -37,14 +35,15 @@ RUN dpkg -i /tmp/subsonic.deb && rm /tmp/subsonic.deb
 RUN ln /var/subsonic/transcode/ffmpeg /var/subsonic/transcode/lame /usr/local/bin
 RUN chown -R nobody:users /var/subsonic
 
-ADD startup.sh /startup.sh
-
-VOLUME [/subsonic]
-VOLUME [/music]
-VOLUME [/podcasts]
-
 EXPOSE 4040
 EXPOSE 4050
 
-USER nobody
-ENTRYPOINT ["/startup.sh"]
+
+VOLUME /config
+VOLUME /mnt
+
+# Add Madsonic to runit
+RUN mkdir /etc/service/madsonic
+ADD madsonic_start.sh /etc/service/madsonic/run
+RUN chmod +x /etc/service/madsonic/run
+
