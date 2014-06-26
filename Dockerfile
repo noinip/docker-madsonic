@@ -19,6 +19,7 @@ RUN apt-get install -qy openjdk-6-jre zip unzip
 RUN apt-get clean
 
 # install madsonic
+ADD mkdir /tmp/madsonic
 ADD http://madsonic.org/download/5.1/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz /tmp/madsonic
 ADD http://madsonic.org/download/transcode/20140411_madsonic-transcode_latest_x64.zip /tmp/madsonic
 RUN tar xvfz 20140415_madsonic-5.1.4100.beta1-standalone.tar.gz /var/madsonic 
