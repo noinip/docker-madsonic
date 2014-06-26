@@ -15,15 +15,15 @@ RUN usermod -g 100 nobody
 RUN apt-get update -q
 
 # install dependencies for madsonic
-RUN apt-get install -qy openjdk-6-jre zip unzip
+RUN apt-get install -qy openjdk-6-jre zip unzip wget
 RUN apt-get clean
 
 # install madsonic
 RUN mkdir /tmp/madsonic
 RUN mkdir /var/madsonic
 RUN mkdir /var/madsonic/transcode
-ADD http://madsonic.org/download/5.1/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz /tmp/madsonic
-ADD http://madsonic.org/download/transcode/20140411_madsonic-transcode_latest_x64.zip /tmp/madsonic
+RUN cd /tmp/madsonic && wget http://madsonic.org/download/5.1/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz
+RUN cd /tmp/madsonic && wget http://madsonic.org/download/transcode/20140411_madsonic-transcode_latest_x64.zip
 RUN tar xvfz /tmp/madsonic/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz /var/madsonic 
 RUN unzip /tmp/madsonic/20140411_madsonic-transcode_latest_x64.zip /tmp/madsonic
 RUN mv /tmp/madsonic/linux/* /var/madsonic/transcode
