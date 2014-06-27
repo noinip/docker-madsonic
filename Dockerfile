@@ -46,7 +46,7 @@ VOLUME /config
 VOLUME /mnt
 
 # Add Madsonic to runit
-RUN mkdir /etc/service/madsonic
-ADD madsonic_start.sh /etc/service/madsonic/run
-RUN chmod +x /etc/service/madsonic/run
-
+#RUN mkdir /etc/service/madsonic
+#ADD madsonic_start.sh /etc/service/madsonic/run
+#RUN chmod +x /etc/service/madsonic/run
+ADD madsonic_start.sh /config
