@@ -121,7 +121,7 @@ if [ -L $0 ] && ([ -e /bin/readlink ] || [ -e /usr/bin/readlink ]); then
     cd $(dirname $(readlink $0))
 fi
 
-${JAVA} -Xms${MADSONIC_INIT_MEMORY}m -Xmx${MADSONIC_MAX_MEMORY}m \
+java -Xms${MADSONIC_INIT_MEMORY}m -Xmx${MADSONIC_MAX_MEMORY}m \
   -Dsubsonic.home=${MADSONIC_HOME} \
   -Dsubsonic.host=${MADSONIC_HOST} \
   -Dsubsonic.port=${MADSONIC_PORT} \
