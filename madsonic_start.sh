@@ -1,9 +1,12 @@
 #!/bin/sh
-#exec /sbin/setuser nobody /var/madsonic/madsonic.sh --home=/config
 
-MADSONIC_HOME=/config
+###################################################################################
+# Shell script for starting Madsonic.  See http://madsonic.org.
+###################################################################################
+
+MADSONIC_HOME=/var/madsonic
 MADSONIC_HOST=0.0.0.0
-MADSONIC_PORT=4040
+MADSONIC_PORT=8082
 MADSONIC_HTTPS_PORT=0
 MADSONIC_CONTEXT_PATH=/
 MADSONIC_INIT_MEMORY=800
@@ -14,7 +17,6 @@ MADSONIC_DEFAULT_UPLOAD_FOLDER=
 MADSONIC_DEFAULT_PODCAST_FOLDER=
 MADSONIC_DEFAULT_PLAYLIST_IMPORT_FOLDER=
 MADSONIC_DEFAULT_PLAYLIST_EXPORT_FOLDER=
-JAVA_HOME=/opt/java/jre:/usr/lib/jvm/java-7-openjdk
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
@@ -109,13 +111,6 @@ while [ $# -ge 1 ]; do
     shift
 done
 
-# Use JAVA_HOME if set, otherwise assume java is in the path.
-JAVA=java
-if [ -e "${JAVA_HOME}" ]
-    then
-    JAVA=${JAVA_HOME}/bin/java
-fi
-
 # Create Madsonic home directory.
 mkdir -p ${MADSONIC_HOME}
 LOG=${MADSONIC_HOME}/madsonic_sh.log
@@ -139,7 +134,7 @@ ${JAVA} -Xms${MADSONIC_INIT_MEMORY}m -Xmx${MADSONIC_MAX_MEMORY}m \
   -Dsubsonic.defaultPlaylistExportFolder=${MADSONIC_DEFAULT_PLAYLIST_EXPORT_FOLDER} \
   -Djava.awt.headless=true \
   -verbose:gc \
-  -jar madsonic-booter.jar > ${LOG} 2>&1 &
+  -jar /var/madsonic/madsonic-booter.jar > ${LOG} 2>&1 &
 
 # Write pid to pidfile if it is defined.
 if [ $MADSONIC_PIDFILE ]; then
@@ -150,5 +145,3 @@ if [ $quiet = 0 ]; then
     echo Started Madsonic [PID $!, ${LOG}]
 fi
 
-sleep 5
-tail -f /config/madsonic_sh.log
