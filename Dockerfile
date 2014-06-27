@@ -15,19 +15,12 @@ RUN usermod -g 100 nobody
 RUN apt-get update -q
 
 # install dependencies for madsonic
-RUN apt-get install -qy openjdk-7-jre zip unzip wget
+RUN apt-get install -qy openjdk-7-jre
 RUN apt-get clean
 
 # install madsonic
-RUN mkdir /tmp/madsonic
-RUN mkdir /var/madsonic
-RUN mkdir /var/madsonic/transcode
-RUN cd /tmp/madsonic && wget http://madsonic.org/download/5.1/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz
-RUN cd /tmp/madsonic && wget http://madsonic.org/download/transcode/20140411_madsonic-transcode_latest_x64.zip
-RUN tar -xf /tmp/madsonic/20140415_madsonic-5.1.4100.beta1-standalone.tar.gz -C /var/madsonic
-RUN unzip /tmp/madsonic/20140411_madsonic-transcode_latest_x64.zip -d /tmp/madsonic
-RUN mv /tmp/madsonic/linux/* /var/madsonic/transcode
-RUN rm -rf /tmp/madsonic
+ADD http://madsonic.org/download/5.1/20140322_madsonic-5.1.4046.beta1.deb /tmp/madsonic.deb
+RUN dpkg -i /tmp/madsonic.deb && rm /tmp/madsonic.deb
 
 # Create hardlinks to the transcoding binaries.
 # This way we can mount a volume over /var/subsonic.
@@ -43,10 +36,9 @@ EXPOSE 4050
 
 
 VOLUME /config
-VOLUME /mnt
 
 # Add Madsonic to runit
-#RUN mkdir /etc/service/madsonic
-#ADD madsonic_start.sh /etc/service/madsonic/run
-#RUN chmod +x /etc/service/madsonic/run
-ADD madsonic_start.sh /config
+RUN mkdir /etc/service/madsonic
+ADD madsonic.sh /etc/service/madsonic/run
+RUN chmod +x /etc/service/madsonic/run
+
