@@ -35,7 +35,7 @@ RUN unzip /tmp/transcode.zip -d /tmp
 RUN mv /tmp/linux/* /var/madsonic/transcode
 RUN chown -R nobody:users /var/madsonic/transcode/
 RUN chmod -R 777 /var/madsonic/transcode/
-RUN ln -ls /var/madsonic/transcode/* /usr/bin/
+RUN ln -s /var/madsonic/transcode/* /usr/bin/
 
 # Add Madsonic to runit
 RUN mkdir /etc/service/madsonic
