@@ -4,6 +4,9 @@
 # Shell script for starting Madsonic.  See http://madsonic.org.
 ###################################################################################
 
+mkdir /config/transcode
+mv /tmp/linux/* /config/transcode
+
 HOME=/config
 HOST=0.0.0.0
 PORT=4040
