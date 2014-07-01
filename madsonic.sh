@@ -6,7 +6,7 @@
 
 ## Copy over ffmpeg and other transcoders
 mkdir -p /config/transcode
-cp /tmp/linux/* /config/transcode/
+cp /var/madsonic/transcode/* /config/transcode/
 chown -R nobody:users /config
 chmod +x /config/transcode/*
 
