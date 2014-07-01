@@ -24,6 +24,11 @@ RUN dpkg -i /tmp/madsonic.deb && rm /tmp/madsonic.deb
 
 RUN chown -R nobody:users /var/madsonic
 
+# install update
+ADD http://madsonic.org/download/5.1/20140415_madsonic-5.1.4100.beta1-war-jspc.zip /usr/share/madsonic/update.zip
+RUN cd /usr/share/madsonic && unzip -o update.zip
+RUN chmod +x /usr/share/madsonic/*
+
 EXPOSE 4040
 EXPOSE 4050
 
