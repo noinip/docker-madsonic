@@ -4,9 +4,13 @@
 # Shell script for starting Madsonic.  See http://madsonic.org.
 ###################################################################################
 
+## Copy over ffmpeg and other transcoders
 mkdir -p /config/transcode
 cp /tmp/linux/* /config/transcode/
+chown -R nobody:users /config
+chmod +x /config/transcode/*
 
+## Start up Madsonic
 HOME=/config
 HOST=0.0.0.0
 PORT=4040
