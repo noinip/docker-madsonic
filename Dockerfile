@@ -32,10 +32,10 @@ VOLUME /config
 # install 64-bit binaries for ffmpeg/lame/etc
 ADD http://madsonic.org/download/transcode/20140411_madsonic-transcode_latest_x64.zip /tmp/transcode.zip
 RUN unzip /tmp/transcode.zip -d /tmp
-RUN mv /tmp/linux/* /var/madsonic/transcode
-RUN chown -R nobody:users /var/madsonic/transcode/
-RUN chmod -R 777 /var/madsonic/transcode/
-RUN ln -s /var/madsonic/transcode/* /usr/bin/
+#RUN cp /tmp/linux/* /var/madsonic/transcode
+#RUN chown -R nobody:users /var/madsonic/transcode/
+#RUN chmod -R 777 /var/madsonic/transcode/
+#RUN ln -s /var/madsonic/transcode/* /usr/bin/
 
 # Add Madsonic to runit
 RUN mkdir /etc/service/madsonic
