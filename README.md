@@ -1,11 +1,9 @@
 #docker Madsonic
 
-Currently using the Madsonic 5.1 beta, build II
-http://forum.madsonic.org/viewtopic.php?f=17&t=1074
+Currently using the Madsonic 5.1 beta2, build 4800
+http://forum.madsonic.org/viewtopic.php?f=34&t=1134
 
-## Volumes:
-
-#### `/config`
+## `/config`
 
 Home directory for madsonic.  Your logs and databases will be stored here.
 
