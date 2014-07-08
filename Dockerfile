@@ -19,15 +19,15 @@ RUN apt-get install -qy openjdk-7-jre unzip
 RUN apt-get clean
 
 # install madsonic
-ADD http://madsonic.org/download/5.1/20140322_madsonic-5.1.4046.beta1.deb /tmp/madsonic.deb
+ADD http://madsonic.org/download/5.1/20140702_madsonic-5.1.4800.beta2.deb /tmp/madsonic.deb
 RUN dpkg -i /tmp/madsonic.deb && rm /tmp/madsonic.deb
 
 RUN chown -R nobody:users /var/madsonic
 
 # install update
-ADD http://madsonic.org/download/5.1/20140415_madsonic-5.1.4100.beta1-war-jspc.zip /usr/share/madsonic/update.zip
-RUN cd /usr/share/madsonic && unzip -o update.zip
-RUN chmod +x /usr/share/madsonic/*
+#ADD http://madsonic.org/download/5.1/20140415_madsonic-5.1.4100.beta1-war-jspc.zip /usr/share/madsonic/update.zip
+#RUN cd /usr/share/madsonic && unzip -o update.zip
+#RUN chmod +x /usr/share/madsonic/*
 
 EXPOSE 4040
 EXPOSE 4050
@@ -35,7 +35,7 @@ EXPOSE 4050
 
 VOLUME /config
 # install latest 64-bit binaries for ffmpeg/lame/etc
-ADD http://madsonic.org/download/transcode/20140411_madsonic-transcode_latest_x64.zip /tmp/transcode.zip
+ADD http://madsonic.org/download/transcode/20140702_madsonic-transcode_latest_x64.zip /tmp/transcode.zip
 RUN unzip /tmp/transcode.zip -d /tmp
 RUN cp /tmp/linux/* /var/madsonic/transcode
 RUN chown -R nobody:users /var/madsonic/transcode/
