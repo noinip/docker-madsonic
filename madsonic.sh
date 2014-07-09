@@ -14,7 +14,7 @@ chmod +x /config/transcode/*
 HOME=/config
 HOST=0.0.0.0
 PORT=4040
-CONTEXT_PATH=/
+CONTEXT_PATH=/madsonic
 MAX_MEMORY=1200
 
 MADSONIC_USER=nobody
@@ -25,6 +25,7 @@ export LC_ALL=en_US.UTF-8
 /usr/bin/madsonic --home=$HOME \
                   --host=$HOST \
                   --port=$PORT \
+                  --context-path=$CONTEXT_PATH \
                   --max-memory=$MAX_MEMORY 
 sleep 5
 tail -f /config/madsonic_sh.log
