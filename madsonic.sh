@@ -14,7 +14,7 @@ chmod +x /config/transcode/*
 HOME=/config
 HOST=0.0.0.0
 PORT=4040
-CONTEXT_PATH=/madsonic
+CONTEXT_PATH=/$CONTEXT_PATH
 MAX_MEMORY=1200
 
 MADSONIC_USER=nobody
