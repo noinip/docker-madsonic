@@ -12,10 +12,18 @@ chmod +x /config/transcode/*
 
 ## Start up Madsonic
 HOME=/config
-HOST=0.0.0.0
-PORT=4040
-CONTEXT_PATH=/$CONTEXT_PATH
-MAX_MEMORY=1200
+  if [[ -z $HOST ]]; then 
+    HOST=0.0.0.0
+  fi
+  if [[ -z $PORT ]]; then
+    PORT=4040
+  fi
+  if [[ -z $CONTEXT_PATH ]]; then
+    CONTEXT_PATH=/
+  fi
+  if [[ -z $MAX_MEMORY ]]; then
+    MAX_MEMORY=1200
+  fi
 
 MADSONIC_USER=nobody
 
