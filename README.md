@@ -3,10 +3,15 @@
 Currently using the Madsonic 5.1 beta2, build 4800
 http://forum.madsonic.org/viewtopic.php?f=34&t=1134
 
-## `/config`
-
+/config
 Home directory for madsonic.  Your logs and databases will be stored here.
 
+environment variables (use -e ENV_VAR_NAME=value to change)
+HOME=/config
+HOST=0.0.0.0
+PORT=4040
+CONTEXT_PATH=/
+MAX_MEMORY=1200
 
 ## Docker run command:
 
