@@ -6,7 +6,7 @@ http://forum.madsonic.org/viewtopic.php?f=34&t=1134
 /config  
 Home directory for madsonic.  Your logs and databases will be stored here.
 
-Default environment variable settings (use -e "ENV_VAR_NAME=value" to change)  
+Default environment variable settings (use -e ENV_VAR_NAME="value" to change)  
 HOST=0.0.0.0  
 PORT=4040  
 CONTEXT_PATH=/  
