@@ -18,6 +18,9 @@ HOME=/config
   if [ -z $PORT ]; then
     PORT=4040
   fi
+  if [ -z $SSLPORT ]; then
+    SSLPORT=4050
+  fi
   if [ -z $CONTEXT_PATH ]; then
     CONTEXT_PATH=/
   fi
@@ -33,6 +36,7 @@ export LC_ALL=en_US.UTF-8
 /usr/bin/madsonic --home=$HOME \
                   --host=$HOST \
                   --port=$PORT \
+				 --https-port=$SSLPORT \
                   --context-path=$CONTEXT_PATH \
                   --max-memory=$MAX_MEMORY 
 sleep 5
