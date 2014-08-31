@@ -19,7 +19,7 @@ RUN apt-get install -qy openjdk-7-jre unzip
 RUN apt-get clean
 
 # install madsonic
-ADD http://madsonic.org/download/5.1/20140702_madsonic-5.1.4800.beta2.deb /tmp/madsonic.deb
+ADD http://madsonic.org/download/5.1/20140823_madsonic-5.1.5080.deb /tmp/madsonic.deb
 RUN dpkg -i /tmp/madsonic.deb && rm /tmp/madsonic.deb
 
 RUN chown -R nobody:users /var/madsonic
